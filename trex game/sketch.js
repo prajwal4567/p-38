@@ -36,12 +36,12 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(600, 200);
+  createCanvas(displayWidth, displayHeight);
 
   var message = "This is a message";
     console.log(message)
   
-  trex = createSprite(50,160,20,50);
+  trex = createSprite(displayWidth/2-600,displayHeight-180,20,50);
   trex.addAnimation("running", trex_running);
   trex.addAnimation("collided", trex_collided);
   camera.position.x=trex.x;
@@ -50,21 +50,21 @@ function setup() {
 
   trex.scale = 0.5;
   
-  ground = createSprite(200,180,400,20);
+  ground = createSprite(displayWidth-200,displayHeight-180,400,20);
   ground.addImage("ground",groundImage);
   ground.x = ground.width /2;
   
-  gameOver = createSprite(300,100);
+  gameOver = createSprite(displayWidth/2,displayHeight/2);
   gameOver.addImage(gameOverImg);
   
-  restart = createSprite(300,140);
+  restart = createSprite(displayWidth/2,displayHeight/2+40);
   restart.addImage(restartImg);
   
  
   gameOver.scale = 0.5;
   restart.scale = 0.5;
   
-  invisibleGround = createSprite(200,190,400,10);
+  invisibleGround = createSprite(displayWidth/2-600,displayHeight-180,400,10);
   invisibleGround.visible = false;
   
   //create Obstacle and Cloud Groups
@@ -106,11 +106,11 @@ function draw() {
     
     
     //jump when the space key is pressed
-    if(keyDown("space")&& trex.y >= 161.5) {
+    if(keyDown("space")&& trex.y >= (trex.y-10)) {
         trex.velocityY = -12;
         jumpSound.play();
     }    
-    
+    console.log(trex.x);
     //add gravity
     trex.velocityY = trex.velocityY + 0.8
   
@@ -173,7 +173,7 @@ function reset(){
 
 function spawnObstacles(){
  if (frameCount % 60 === 0){
-   var obstacle = createSprite(600,165,10,40);
+   var obstacle = createSprite(displayWidth-200,displayHeight-180,10,40);
    obstacle.velocityX = -(6 + score/100);
    
     //generate random obstacles
@@ -206,7 +206,7 @@ function spawnObstacles(){
 function spawnClouds() {
   //write code here to spawn the clouds
   if (frameCount % 60 === 0) {
-    var cloud = createSprite(600,120,40,10);
+    var cloud = createSprite(displayWidth-200,displayHeight-180,40,10);
     cloud.y = Math.round(random(80,120));
     cloud.addImage(cloudImage);
     cloud.scale = 0.5;
