@@ -10,7 +10,7 @@ var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obsta
 
 var score;
 var gameOverImg,restartImg
-var jumpSound , checkPointSound, dieSound
+var jumpSound , checkPointSound, dieSound,backgroundimg;
 
 function preload(){
   trex_running = loadAnimation("trex1.png","trex3.png","trex4.png");
@@ -26,6 +26,7 @@ function preload(){
   obstacle4 = loadImage("obstacle4.png");
   obstacle5 = loadImage("obstacle5.png");
   obstacle6 = loadImage("obstacle6.png");
+  backgroundimg=loadImage("background.jpg")
   
   restartImg = loadImage("restart.png")
   gameOverImg = loadImage("gameOver.png")
@@ -50,21 +51,21 @@ function setup() {
 
   trex.scale = 0.5;
   
-  ground = createSprite(displayWidth-200,displayHeight-180,400,20);
+  ground = createSprite(displayWidth-200,displayHeight+100,400,20);
   ground.addImage("ground",groundImage);
   ground.x = ground.width /2;
   
-  gameOver = createSprite(displayWidth/2,displayHeight/2);
+  gameOver = createSprite(displayWidth/2-600,displayHeight/2+250);
   gameOver.addImage(gameOverImg);
   
-  restart = createSprite(displayWidth/2,displayHeight/2+40);
+  restart = createSprite(displayWidth/2-600,displayHeight/2+290);
   restart.addImage(restartImg);
   
  
   gameOver.scale = 0.5;
   restart.scale = 0.5;
   
-  invisibleGround = createSprite(displayWidth/2-600,displayHeight-180,400,10);
+  invisibleGround = createSprite(displayWidth/2-600,displayHeight+100,400,10);
   invisibleGround.visible = false;
   
   //create Obstacle and Cloud Groups
@@ -81,7 +82,7 @@ function setup() {
 
 function draw() {
   
-  background(180);
+  background(backgroundimg);
   //displaying score
   text("Score: "+ score, 500,50);
   
@@ -173,7 +174,7 @@ function reset(){
 
 function spawnObstacles(){
  if (frameCount % 60 === 0){
-   var obstacle = createSprite(displayWidth-200,displayHeight-180,10,40);
+   var obstacle = createSprite(displayWidth-200,displayHeight+100,10,40);
    obstacle.velocityX = -(6 + score/100);
    
     //generate random obstacles
